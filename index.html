@@ -12,10 +12,10 @@
 <body class="min-h-screen bg-slate-100 p-2 sm:p-4 flex flex-col items-center justify-start">
 
   <div class="w-full max-w-lg bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden mb-8 mt-4">
-    <div id="headerBar" class="bg-gradient-to-r from-indigo-600 to-violet-600 px-6 py-5 text-white flex items-center justify-between relative">
+    <div id="headerBar" class="bg-gradient-to-r from-indigo-600 to-violet-600 px-6 py-5 text-white flex items-center justify-between">
       <div class="text-left">
         <h1 class="text-xl font-bold tracking-tight">ĐĂNG KÝ THÔNG TIN</h1>
-        <p class="text-indigo-100 text-xs mt-0.5">Vui lòng chọn Nhà máy ứng tuyển và quét QR CCCD.</p>
+        <p class="text-indigo-100 text-xs mt-0.5">Chọn Nhà máy ứng tuyển và quét mã góc phải thẻ CCCD.</p>
       </div>
       <div class="flex items-center space-x-2">
         <label class="p-2.5 bg-white/20 hover:bg-white/30 rounded-full transition-all text-white cursor-pointer flex items-center justify-center">
@@ -35,21 +35,13 @@
       <div>
         <label class="block text-sm font-bold text-slate-900 mb-1.5" for="factoryCode">Nhà máy đăng ký làm việc *</label>
         <select id="factoryCode" required onchange="onFactoryChange()" class="w-full px-4 py-2.5 rounded-xl border border-indigo-300 text-slate-900 font-semibold bg-indigo-50/50">
-            <option value="">-- Chọn Nhà máy làm việc --</option>
-            <option value="HONHAI-FK">HONHAI-FK / FUKANG</option>
-            <option value="LUXE QC2&3">LUXE QC2&3</option>
-            <option value="LUXE QC1">LUXE QC1</option>
-            <option value="LUXE VT">LUXE VT</option>
-            <option value="GTK NAM SƠN">GTK NAM SƠN</option>
-            <option value="ADTEK">ADTEK</option>
-            <option value="LENS">LENS</option>
-            <option value="WNC HÀ NAM">WNC HÀ NAM</option>
-            <option value="FUSHAN">FUSHAN</option>
-            <option value="NEWWING">NEWWING</option>
-            <option value="FOX-QUẢNG NINH">FOX-QUẢNG NINH</option>
-            <option value="AMPHENOL">AMPHENOL</option>
-            <option value="BIEL VSIP">BIEL VSIP</option>
-            <option value="BIEL HD">BIEL HP</option>
+          <option value="">-- Chọn Nhà máy làm việc --</option>
+          <option value="FUSHAN">FUSHAN</option>
+          <option value="HONHAI-FK">HONHAI-FK / FUKANG</option>
+          <option value="LUXE QC2&3">LUXE QC2&3</option>
+          <option value="LUXE QC1">LUXE QC1</option>
+          <option value="GTK NAM SƠN">GTK NAM SƠN</option>
+          <option value="NEWWING">NEWWING</option>
         </select>
       </div>
       
@@ -58,18 +50,28 @@
         <div id="div_fullname" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="fullname">Họ và tên *</label><input type="text" id="fullname" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"></div>
         <div id="div_gender" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5">Giới tính *</label><div class="flex items-center space-x-6 py-1"><label class="flex items-center cursor-pointer"><input type="radio" name="gender" id="gender_nam" value="Nam" class="w-4 h-4"><span class="ml-2">Nam</span></label><label class="flex items-center cursor-pointer"><input type="radio" name="gender" id="gender_nu" value="Nữ" class="w-4 h-4"><span class="ml-2">Nữ</span></label></div></div>
         <div id="div_dob" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="dob">Ngày sinh *</label><input type="date" id="dob" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"></div>
+        
+        <!-- TRƯỜNG THÔNG TIN MỚI: TÌNH TRẠNG HÔN NHÂN -->
+        <div id="div_maritalStatus" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="maritalStatus">Tình trạng hôn nhân *</label><select id="maritalStatus" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"><option value="Độc thân">Độc thân</option><option value="Đã kết hôn">Đã kết hôn</option><option value="Ly hôn">Ly hôn</option></select></div>
+        
         <div id="div_phone" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="phone">Mobile *</label><input type="tel" id="phone" pattern="[0-9]{10}" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"></div>
         <div id="div_cccd" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="cccd">CCCD *</label><input type="text" id="cccd" pattern="[0-9]{12}" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"></div>
         <div id="div_cccdDate" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="cccdDate">Ngày cấp CCCD *</label><input type="text" id="cccdDate" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"></div>
         <div id="div_cccdExpiry" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="cccdExpiry">Ngày hết hạn CCCD *</label><input type="text" id="cccdExpiry" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"></div>
         <div id="div_ethnicity" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="ethnicity">Dân tộc *</label><input type="text" id="ethnicity" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"></div>
-        <div id="div_schoolName" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="schoolName">Tên trường tốt nghiệp *</label><input type="text" id="schoolName" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"></div>
-        <div id="div_educationLevel" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="educationLevel">Tốt nghiệp cấp mấy *</label><select id="educationLevel" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"><option value="">-- Chọn --</option><option value="THCS (Cấp 2)">THCS (Cấp 2)</option><option value="THPT (Cấp 3)">THPT (Cấp 3)</option><option value="Trung cấp / Cao đẳng">Trung cấp / Cao đẳng</option><option value="Đại học">Đại học</option></select></div>
-        <div id="div_relativeName" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="relativeName">Họ tên người thân *</label><input type="text" id="relativeName" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"></div>
-        <div id="div_relativePhone" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="relativePhone">SĐT người thân *</label><input type="tel" id="relativePhone" pattern="[0-9]{10}" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"></div>
+        
+        <!-- KHỐI THÔNG TIN NGƯỜI THÂN KHẨN CẤP ĐƯỢC BỔ SUNG YÊU CẦU CHO MẪU FUSHAN -->
+        <div id="div_relativeName" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="relativeName">Họ tên người thân khẩn cấp *</label><input type="text" id="relativeName" class="w-full px-4 py-2.5 rounded-xl border border-slate-300" placeholder="Ví dụ: Nguyễn Văn A"></div>
+        <div id="div_relativeRelation" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="relativeRelation">Mối quan hệ người thân *</label><input type="text" id="relativeRelation" class="w-full px-4 py-2.5 rounded-xl border border-slate-300" placeholder="Ví dụ: Bố, Mẹ, Vợ, Anh trai..."></div>
+        <div id="div_relativePhone" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="relativePhone">Số điện thoại người thân *</label><input type="tel" id="relativePhone" pattern="[0-9]{10}" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"></div>
+        <div id="div_relativeAddress" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="relativeAddress">Địa chỉ người thân *</label><input type="text" id="relativeAddress" class="w-full px-4 py-2.5 rounded-xl border border-slate-300" placeholder="Số nhà, Xã, Huyện, Tỉnh"></div>
+        
         <div id="div_fullAddress" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="fullAddress">Địa chỉ thường trú *</label><input type="text" id="fullAddress" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"></div>
         <div id="div_socialInsurance" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="socialInsurance">Số BHXH</label><input type="text" id="socialInsurance" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"></div>
+        <div id="div_schoolName" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="schoolName">Tên trường tốt nghiệp *</label><input type="text" id="schoolName" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"></div>
+        <div id="div_educationLevel" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="educationLevel">Tốt nghiệp cấp mấy *</label><select id="educationLevel" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"><option value="">-- Chọn --</option><option value="THCS (Cấp 2)">THCS (Cấp 2)</option><option value="THPT (Cấp 3)">THPT (Cấp 3)</option><option value="Trung cấp / Cao đẳng">Trung cấp / Cao đẳng</option><option value="Đại học">Đại học</option></select></div>
         <div id="div_note" class="custom-field"><label class="block text-sm font-semibold text-slate-800 mb-1.5" for="note">Ghi Chú</label><input type="text" id="note" class="w-full px-4 py-2.5 rounded-xl border border-slate-300"></div>
+        
         <button type="submit" id="btnSubmit" class="w-full mt-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold py-3 rounded-xl shadow-md cursor-pointer"><span>Xác nhận nộp</span></button>
       </div>
     </form>
@@ -85,10 +87,10 @@
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbx7qyc8B-7RtSfhxEi1PRDKFHgP4pJRZnqJAXXuZTPykYSWTku94Cqxq7dFh9H_L-FxNQ/exec"; 
+    const API_URL = "https://script.google.com/macros/s/AKfycbzXitNfOluqkv5HGCJh9ADHDquZiXGi0xVKKYZBdE4mONGawki4dlbyWE4ZhJdpn-bZ/exec"; 
 
     let html5QrCode = null, isCamOpen = false;
-    const allFieldIds = ['interviewDate', 'fullname', 'dob', 'phone', 'cccd', 'cccdDate', 'cccdExpiry', 'ethnicity', 'schoolName', 'educationLevel', 'relativeName', 'relativePhone', 'fullAddress', 'socialInsurance', 'note'];
+    const allFieldIds = ['interviewDate', 'fullname', 'dob', 'maritalStatus', 'phone', 'cccd', 'cccdDate', 'cccdExpiry', 'ethnicity', 'relativeName', 'relativeRelation', 'relativePhone', 'relativeAddress', 'fullAddress', 'socialInsurance', 'schoolName', 'educationLevel', 'note'];
     const factorySelect = document.getElementById('factoryCode'), fieldsBlock = document.getElementById('fieldsBlock');
 
     function onFactoryChange() { 
@@ -96,9 +98,14 @@
       allFieldIds.forEach(id => { document.getElementById('div_' + id).style.display = 'none'; document.getElementById(id).removeAttribute('required'); }); 
       if (!fCode) { fieldsBlock.classList.add('hidden'); return; } 
       fieldsBlock.classList.remove('hidden'); document.getElementById('div_gender').style.display = 'block'; 
+      
+      // Khai báo các trường hiển thị động theo form nhà máy
       const showFields = ['interviewDate', 'fullname', 'dob', 'phone', 'cccd', 'note']; 
-      if (fCode === "FUSHAN") { showFields.push('cccdDate', 'fullAddress'); } 
-      else { showFields.push('cccdDate', 'cccdExpiry', 'fullAddress'); }
+      if (fCode === "FUSHAN") { 
+        showFields.push('maritalStatus', 'cccdDate', 'fullAddress', 'relativeName', 'relativeRelation', 'relativePhone', 'relativeAddress'); 
+      } else { 
+        showFields.push('cccdDate', 'cccdExpiry', 'fullAddress'); 
+      }
       showFields.forEach(id => { document.getElementById('div_' + id).style.display = 'block'; if (id !== 'note') document.getElementById(id).setAttribute('required', 'true'); }); 
     }
 
@@ -138,49 +145,39 @@
       }
     }
 
-    function splitDateString(dateStr, format) {
-      let day = "", month = "", year = ""; if (!dateStr) return { day, month, year };
-      if (format === 'yyyy-mm-dd') {
-        const parts = dateStr.split('-'); if (parts.length === 3) { year = parts[0]; month = parts[1]; day = parts[2]; }
-      } else {
-        const parts = dateStr.replace(/-/g, '/').split('/'); if (parts.length === 3) { day = parts[0].padStart(2,'0'); month = parts[1].padStart(2,'0'); year = parts[2]; }
-      }
-      return { day, month, year };
-    }
-
-    function splitAddressString(fullAddress) {
-      let commune = "", district = "", province = ""; if (!fullAddress) return { commune, district, province };
-      const parts = fullAddress.split(',').map(item => item.trim());
-      if (parts.length >= 1) province = parts[parts.length - 1];
-      if (parts.length >= 2) district = parts[parts.length - 2];
-      if (parts.length >= 3) commune = parts.slice(0, parts.length - 2).join(', ');
-      return { commune, district, province };
-    }
-
     function submitRegister(e) {
       e.preventDefault(); const btn = document.getElementById('btnSubmit'); btn.disabled = true; btn.innerHTML = "Đang xử lý...";
       const genderRadio = document.querySelector('input[name="gender"]:checked');
       const payload = { action: 'register', factoryName: factorySelect.value, gender: genderRadio ? genderRadio.value : "" };
       allFieldIds.forEach(id => { var el = document.getElementById(id); payload[id] = el ? el.value.trim() : ""; });
 
-      const dobSplit = splitDateString(payload.dob, 'yyyy-mm-dd');
-      payload.dob_day = dobSplit.day; payload.dob_month = dobSplit.month; payload.dob_year = dobSplit.year;
-      const cccdDateSplit = splitDateString(payload.cccdDate, 'dd/mm/yyyy');
-      payload.cccd_day = cccdDateSplit.day; payload.cccd_month = cccdDateSplit.month; payload.cccd_year = cccdDateSplit.year;
-      const addressSplit = splitAddressString(payload.fullAddress);
-      payload.address_province = addressSplit.province; payload.address_district = addressSplit.district; payload.address_commune = addressSplit.commune;
+      // Định dạng ngày gộp DD/MM/YYYY chuẩn gửi đi
+      if (payload.dob) {
+        var p = payload.dob.split('-');
+        if(p.length === 3) { payload.dob_formatted = p[2] + "/" + p[1] + "/" + p[0]; payload.dob_day = p[2]; payload.dob_month = p[1]; payload.dob_year = p[0]; }
+      }
 
-      sendDataToAppsScript(payload, (success, resMsg) => {
-        btn.disabled = false; btn.innerHTML = "<span>Xác nhận nộp</span>";
-        if(success) { document.getElementById('registerForm').reset(); fieldsBlock.classList.add('hidden'); showModal(true, "Thành Công!", resMsg); }
-        else { showModal(false, "Thất Bại", resMsg); }
-      });
-    }
+      // Phân tách cấu trúc địa chỉ thường trú
+      if (payload.fullAddress) {
+        const parts = payload.fullAddress.split(',').map(item => item.trim());
+        payload.address_province = parts.length >= 1 ? parts[parts.length - 1] : "";
+        payload.address_district = parts.length >= 2 ? parts[parts.length - 2] : "";
+        payload.address_commune = parts.length >= 3 ? parts.slice(0, parts.length - 2).join(', ') : (parts.length === 2 ? parts[0] : "");
+      }
 
-    function sendDataToAppsScript(payload, callback) {
+      // Phân tách ngày cấp CCCD thành các trường nhỏ gửi đi
+      if (payload.cccdDate) {
+        const parts = payload.cccdDate.replace(/-/g, '/').split('/');
+        if (parts.length === 3) { payload.cccd_day = parts[0]; payload.cccd_month = parts[1]; payload.cccd_year = parts[2]; }
+      }
+
       fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
-      .then(res => res.json()).then(data => { if(data && data.success) callback(true, data.message); else callback(false, data.message); })
-      .catch(err => { callback(true, "Hồ sơ đã gửi thành công!"); showModal(true, "Thành Công!", "Hồ sơ đăng ký đã ghi nhận ngầm."); });
+      .then(res => res.json()).then(data => {
+        btn.disabled = false; btn.innerHTML = "<span>Xác nhận nộp</span>";
+        if(data && data.success) { document.getElementById('registerForm').reset(); fieldsBlock.classList.add('hidden'); showModal(true, "Thành Công!", data.message); }
+        else { showModal(false, "Thất Bại", data.message); }
+      })
+      .catch(err => { btn.disabled = false; btn.innerHTML = "<span>Xác nhận nộp</span>"; showModal(true, "Thành Công!", "Dữ liệu hồ sơ đăng ký đã gửi thành công ngầm."); });
     }
 
     function showModal(isSuccess, title, msg) {
