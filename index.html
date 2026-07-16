@@ -11,16 +11,11 @@
 </head>
 <body class="min-h-screen bg-slate-100 p-2 sm:p-4 flex flex-col items-center justify-start">
 
-  <div class="w-full max-w-lg bg-white rounded-2xl p-1.5 shadow-md border border-slate-200 flex mb-4 z-10">
-    <button onclick="switchMode('register')" id="tab-register" class="w-1/2 text-center py-2.5 rounded-xl text-sm font-bold transition-all bg-indigo-600 text-white shadow">📝 Đăng Ký</button>
-    <button onclick="switchMode('checkin')" id="tab-checkin" class="w-1/2 text-center py-2.5 rounded-xl text-sm font-bold transition-all text-slate-600 hover:text-slate-900">⏱️ Điểm Danh</button>
-  </div>
-
-  <div class="w-full max-w-lg bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden mb-8">
+  <div class="w-full max-w-lg bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden mb-8 mt-4">
     <div id="headerBar" class="bg-gradient-to-r from-indigo-600 to-violet-600 px-6 py-5 text-white flex items-center justify-between relative">
       <div class="text-left">
-        <h1 id="mainTitle" class="text-xl font-bold tracking-tight">ĐĂNG KÝ THÔNG TIN</h1>
-        <p id="subHeader" class="text-indigo-100 text-xs mt-0.5">Vui lòng chọn Nhà máy ứng tuyển và quét QR CCCD.</p>
+        <h1 class="text-xl font-bold tracking-tight">ĐĂNG KÝ THÔNG TIN</h1>
+        <p class="text-indigo-100 text-xs mt-0.5">Vui lòng chọn Nhà máy ứng tuyển và quét QR CCCD.</p>
       </div>
       <div class="flex items-center space-x-2">
         <label class="p-2.5 bg-white/20 hover:bg-white/30 rounded-full transition-all text-white cursor-pointer flex items-center justify-center">
@@ -70,22 +65,6 @@
         <button type="submit" id="btnSubmit" class="w-full mt-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold py-3 rounded-xl shadow-md cursor-pointer"><span>Xác nhận nộp</span></button>
       </div>
     </form>
-
-    <form id="checkinForm" class="p-6 space-y-5 hidden" onsubmit="submitCheckin(event)">
-      <div>
-        <label class="block text-sm font-bold text-slate-900 mb-1.5" for="ck_factory">Nhà máy phỏng vấn *</label>
-        <select id="ck_factory" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-slate-900 font-medium bg-slate-50">
-          <option value="">-- Chọn Nhà máy --</option>
-          <option value="FUSHAN">FUSHAN</option>
-          <option value="HONHAI-FK">HONHAI-FK / FUKANG</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-bold text-slate-900 mb-1.5" for="ck_cccd">Số CCCD Lao động (12 số) *</label>
-        <input type="text" id="ck_cccd" required pattern="[0-9]{12}" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-semibold text-slate-900" placeholder="Quét mã QR hoặc gõ tay">
-      </div>
-      <button type="submit" id="btnCheckin" class="w-full mt-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold py-3 rounded-xl shadow-md cursor-pointer"><span>Xác nhận điểm danh</span></button>
-    </form>
   </div>
 
   <div id="successModal" class="hidden fixed inset-0 bg-slate-900/50 flex items-center justify-center p-4 backdrop-blur-sm z-50">
@@ -98,27 +77,11 @@
   </div>
 
   <script>
-    // DÁN LINK DEPLOY WEB APP CỦA TỪNG VENDOR VÀO ĐÂY
     const API_URL = "https://script.google.com/macros/s/AKfycbx7qyc8B-7RtSfhxEi1PRDKFHgP4pJRZnqJAXXuZTPykYSWTku94Cqxq7dFh9H_L-FxNQ/exec"; 
 
-    let currentMode = 'register', html5QrCode = null, isCamOpen = false;
+    let html5QrCode = null, isCamOpen = false;
     const allFieldIds = ['interviewDate', 'fullname', 'dob', 'phone', 'cccd', 'cccdDate', 'cccdExpiry', 'ethnicity', 'schoolName', 'educationLevel', 'relativeName', 'relativePhone', 'fullAddress', 'socialInsurance', 'note'];
     const factorySelect = document.getElementById('factoryCode'), fieldsBlock = document.getElementById('fieldsBlock');
-
-    function switchMode(mode) {
-      if (currentMode === mode) return; currentMode = mode; stopCamera();
-      const tabReg = document.getElementById('tab-register'), tabCk = document.getElementById('tab-checkin');
-      const formReg = document.getElementById('registerForm'), formCk = document.getElementById('checkinForm');
-      if (mode === 'register') {
-        tabReg.className = "w-1/2 text-center py-2.5 rounded-xl text-sm font-bold bg-indigo-600 text-white shadow";
-        tabCk.className = "w-1/2 text-center py-2.5 rounded-xl text-sm font-bold text-slate-600";
-        formReg.classList.remove('hidden'); formCk.classList.add('hidden');
-      } else {
-        tabCk.className = "w-1/2 text-center py-2.5 rounded-xl text-sm font-bold bg-emerald-600 text-white shadow";
-        tabReg.className = "w-1/2 text-center py-2.5 rounded-xl text-sm font-bold text-slate-600";
-        formCk.classList.remove('hidden'); formReg.classList.add('hidden');
-      }
-    }
 
     function onFactoryChange() { 
       const fCode = factorySelect.value; 
@@ -157,14 +120,14 @@
 
     function handleDecodedText(rawText) {
       const parts = rawText.split('|');
-      if (currentMode === 'register' && parts.length >= 6) {
+      if (parts.length >= 6) {
         document.getElementById('cccd').value = parts[0].trim();
         document.getElementById('fullname').value = parts[2].trim();
         if(parts[3].length === 8) document.getElementById('dob').value = parts[3].substring(4,8)+"-"+parts[3].substring(2,4)+"-"+parts[3].substring(0,2);
         if(parts[4].trim() === "Nam") document.getElementById('gender_nam').checked = true; else document.getElementById('gender_nu').checked = true;
         document.getElementById('fullAddress').value = parts[5].trim();
         if(parts[6].length === 8) document.getElementById('cccdDate').value = parts[6].substring(0,2)+"/"+parts[6].substring(2,4)+"/"+parts[6].substring(4,8);
-      } else if (parts[0].length === 12) { document.getElementById('ck_cccd').value = parts[0]; }
+      }
     }
 
     function splitDateString(dateStr, format) {
@@ -206,18 +169,10 @@
       });
     }
 
-    function submitCheckin(e) {
-      e.preventDefault(); const btn = document.getElementById('btnCheckin'); btn.disabled = true;
-      const payload = { action: 'checkin', factoryName: document.getElementById('ck_factory').value, cccd: document.getElementById('ck_cccd').value };
-      sendDataToAppsScript(payload, (success, resMessage) => {
-        btn.disabled = false; if (success) { document.getElementById('ck_cccd').value = ""; showModal(true, "Thành Công!", resMessage); } else { showModal(false, "Thất Bại", resMessage); }
-      });
-    }
-
     function sendDataToAppsScript(payload, callback) {
       fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
       .then(res => res.json()).then(data => { if(data && data.success) callback(true, data.message); else callback(false, data.message); })
-      .catch(err => { if(payload.action === 'register') { callback(true, "Hồ sơ đã gửi thành công!"); } else callback(false, "Lỗi kết nối."); });
+      .catch(err => { callback(true, "Hồ sơ đã gửi thành công!"); showModal(true, "Thành Công!", "Hồ sơ đăng ký đã ghi nhận ngầm."); });
     }
 
     function showModal(isSuccess, title, msg) {
